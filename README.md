@@ -16,3 +16,8 @@ Copies the local player's position and rotation onto the GameObject with the Udo
 #### > TextFormatting.cs
 
 Very messy script, check source code to see if it could be useful to you. Main features being `DateTime.Now.ToString()` formatting and `formatCustom` will replace `%playerLocal%` with the local player's display name.
+
+
+#### > JumpPads.cs
+
+Players within range of the game object will have their jump power increased. Power is reverted once the player leaves the object's range.
