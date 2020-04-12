@@ -15,8 +15,6 @@ public class Boost : UdonSharpBehaviour
     [Tooltip("Boost power.")]
     public float boostSpeed = 20;
 
-    private bool _inProximity;
-    
     private void Update()
     {
         var dist = Vector3.Distance(Networking.LocalPlayer.GetPosition(), referencePoint.transform.position);
