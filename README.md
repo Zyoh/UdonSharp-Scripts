@@ -3,6 +3,16 @@
 Some scripts I've written for [Merlin's UdonSharp](https://github.com/Merlin-san/UdonSharp)
 
 
+#### > Boost.cs
+
+Players within a specified range of the `referencePoint` GameObject will be thrown towards the `targetPoint` GameObject with an assigned speed. 
+
+
+#### > PlayerMods.cs
+
+A script for altering player settings such as speed and jump. Optionally allows the use of the old VRChat locomotion behaviour.                                                            
+
+
 #### > InteractToggleGameObject.cs
 
 Assign UdonBehaviour to the GameObject to be interacted with (aka used as a button) then place GameObject to toggle into the script variable.
