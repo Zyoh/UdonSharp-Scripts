@@ -5,12 +5,12 @@ Some scripts I've written for [Merlin's UdonSharp](https://github.com/Merlin-san
 
 #### > Boost.cs
 
-Player within range of the `referencePoint` gameobject will be thrown into direction of `targetPoint` with an assigned speed. 
+Players within a specified range of the `referencePoint` GameObject will be thrown towards the `targetPoint` GameObject with an assigned speed. 
 
 
 #### > PlayerMods.cs
 
-A script for altering player settings such as speed and jump. Allows to use old VRChat locomotion behaviour.
+A script for altering player settings such as speed and jump. Optionally allows the use of the old VRChat locomotion behaviour.                                                            
 
 
 #### > InteractToggleGameObject.cs
