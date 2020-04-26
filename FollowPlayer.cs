@@ -13,7 +13,7 @@ public class FollowPlayer : UdonSharpBehaviour
         playerLocal = Networking.LocalPlayer;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         transform.SetPositionAndRotation(playerLocal.GetPosition(), playerLocal.GetRotation());
     }

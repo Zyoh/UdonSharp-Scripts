@@ -1,2 +1,6 @@
 .idea/.idea.UdonSharp-Scripts.dir/.idea/
 .idea/.idea.UdonSharp-Scripts.dir/
+
+*.meta
+
+*.asset
