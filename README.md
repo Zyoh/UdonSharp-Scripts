@@ -31,3 +31,8 @@ Very messy script, check source code to see if it could be useful to you. Main f
 #### > JumpPads.cs
 
 Players within range of the game object will have their jump power increased. Power is reverted once the player leaves the object's range.
+
+
+#### > OnInteractAnimationPlayer.cs
+
+Allows players to trigger animations from assigned `animator` via interacting with object, which has current script in it.
