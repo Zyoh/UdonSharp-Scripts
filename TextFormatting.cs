@@ -37,7 +37,7 @@ public class TextFormatting : UdonSharpBehaviour
 
     private void Update()
     {
-        var newString = userString;
+        string newString = userString;
         
         if (formatDateTime) newString = DateTime.Now.ToString(newString);
         if (formatCustom)
@@ -52,6 +52,9 @@ public class TextFormatting : UdonSharpBehaviour
         if (forceAscii)
         {
             // TODO: Actually make this be useful instead of only fixing my name lol.
+            // https://stackoverflow.com/questions/11815883/convert-non-ascii-characters-umlauts-accents-to-their-closest-ascii-equiva
+            // https://www.javatpoint.com/csharp-string-normalize
+            // https://docs.microsoft.com/ru-ru/dotnet/api/system.text.normalizationform?view=netcore-3.1
             newString = newString.Replace('ë', 'e');
         }
         if (skipBrokenNames)

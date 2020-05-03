@@ -9,7 +9,8 @@ using VRC.Udon;
 public class FollowPlayer : UdonSharpBehaviour
 {
     private VRCPlayerApi playerLocal;
-    void Start()
+    
+    private void Start()
     {
         playerLocal = Networking.LocalPlayer;
     }

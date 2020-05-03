@@ -15,13 +15,33 @@ public class Boost : UdonSharpBehaviour
     [Tooltip("Boost power.")]
     public float boostSpeed = 20;
 
+    private Boolean isActivated = false;
+    private VRCPlayerApi localPlayer;
+    private Vector3 boost; 
+
+    private void Start()
+    {
+        if (referencePoint == null)
+        {
+            referencePoint = this.gameObject;
+        }
+        localPlayer = Networking.LocalPlayer;
+        boost = targetPoint.transform.position - referencePoint.transform.position;
+    }
     private void Update()
     {
-        var dist = Vector3.Distance(Networking.LocalPlayer.GetPosition(), referencePoint.transform.position);
+        var dist = Vector3.Distance(localPlayer.GetPosition(), referencePoint.transform.position);
         if (dist < threshold)
         {
-            var boost = targetPoint.transform.position - Networking.LocalPlayer.GetPosition();
-            Networking.LocalPlayer.SetVelocity(boost.normalized * boostSpeed);
+            if (!isActivated)
+            {
+                isActivated = true;
+                localPlayer.SetVelocity(boost.normalized * boostSpeed);
+            }
+        }
+        else if (isActivated)
+        {
+            isActivated = false;
         }
     }
 }
