@@ -9,33 +9,47 @@ public class JumpPads : UdonSharpBehaviour
 {
     public GameObject referencePoint;
     public float threshold = 5.0f;
-    private float jumpHeight;
-    private bool inProx;
     public float augmentedJumpImpulse = 20;
+    
+    private float jumpHeight;
+    private bool inProx = false;
+    private VRCPlayerApi localPlayer;
+    
+    private void Start()
+    {
+        if (referencePoint == null)
+        {
+            referencePoint = this.gameObject;
+        }
+        localPlayer = Networking.LocalPlayer;
+    }
 
     private void Update()
     {
-        var dist = Vector3.Distance(Networking.LocalPlayer.GetPosition(), referencePoint.transform.position);
+        var dist = Vector3.Distance(localPlayer.GetPosition(), referencePoint.transform.position);
         if (dist < threshold)
         {
-            if (!inProx) ProximityAction();
-            inProx = true;
+            if (!inProx)
+            {
+                inProx = true;
+                ProximityAction();
+            }
         }
-        else
+        else if (inProx)
         {
-            if (inProx) ExitProxAction();
             inProx = false;
+            ExitProxAction();
         }
     }
 
-    public void ProximityAction()
+    private void ProximityAction()
     {
-        jumpHeight = Networking.LocalPlayer.GetJumpImpulse();
-        Networking.LocalPlayer.SetJumpImpulse(augmentedJumpImpulse);
+        jumpHeight = localPlayer.GetJumpImpulse();
+        localPlayer.SetJumpImpulse(augmentedJumpImpulse);
     }
 
-    public void ExitProxAction()
+    private void ExitProxAction()
     {
-        Networking.LocalPlayer.SetJumpImpulse(jumpHeight);
+        localPlayer.SetJumpImpulse(jumpHeight);
     }
 }

@@ -1,10 +1,11 @@
 
+using System;
 using UdonSharp;
 using UnityEngine;
 using VRC.SDKBase;
 using VRC.Udon;
 
-public class PlayerMods_Sharp : UdonSharpBehaviour
+public class PlayerMods : UdonSharpBehaviour
 {
 
     private VRCPlayerApi playerLocal;
@@ -13,7 +14,7 @@ public class PlayerMods_Sharp : UdonSharpBehaviour
     public float RunSpeed = 6;
     public float JumpHeight = 3;
 
-    void Start()
+    private void Start()
     {
         playerLocal = Networking.LocalPlayer;
         if (playerLocal == null) return;
