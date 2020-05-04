@@ -22,7 +22,6 @@ public class JumpPads : UdonSharpBehaviour
             referencePoint = this.gameObject;
         }
         localPlayer = Networking.LocalPlayer;
-        jumpHeight = localPlayer.GetJumpImpulse();
     }
 
     private void Update()
@@ -45,6 +44,7 @@ public class JumpPads : UdonSharpBehaviour
 
     private void ProximityAction()
     {
+        jumpHeight = localPlayer.GetJumpImpulse();
         localPlayer.SetJumpImpulse(augmentedJumpImpulse);
     }
 
