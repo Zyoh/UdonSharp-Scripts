@@ -1,5 +1,7 @@
 
 using System;
+using System.Text;
+using System.Text.RegularExpressions;
 using UdonSharp;
 using UnityEngine;
 using UnityEngine.Experimental.PlayerLoop;
@@ -9,6 +11,7 @@ using VRC.Udon;
 
 public class TextFormatting : UdonSharpBehaviour
 {
+    public Unidecoder unidecoder;
     public Text textObject;
     [Tooltip("Strings of length less than or equal to this value will be at maximum font size.")]
     public int maxLineLength = 9;
@@ -51,11 +54,9 @@ public class TextFormatting : UdonSharpBehaviour
         }
         if (forceAscii)
         {
-            // TODO: Actually make this be useful instead of only fixing my name lol.
-            // https://stackoverflow.com/questions/11815883/convert-non-ascii-characters-umlauts-accents-to-their-closest-ascii-equiva
-            // https://www.javatpoint.com/csharp-string-normalize
-            // https://docs.microsoft.com/ru-ru/dotnet/api/system.text.normalizationform?view=netcore-3.1
-            newString = newString.Replace('ë', 'e');
+            // TODO: Actually make this be useful instead of only fixing my name lol
+            // https://github.com/thecoderok/Unidecode.NET
+            newString = unidecoder.Unidecode(newString);
         }
         if (skipBrokenNames)
         {
