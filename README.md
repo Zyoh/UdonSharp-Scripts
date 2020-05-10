@@ -27,6 +27,8 @@ Copies the local player's position and rotation onto the GameObject with the Udo
 
 Very messy script, check source code to see if it could be useful to you. Main features being `DateTime.Now.ToString()` formatting and `formatCustom` will replace `%playerLocal%` with the local player's display name.
 
+**For being able to use `forceAscii` feature, requires assigning ``Unidecoder`` object through a reference!**
+
 
 #### > JumpPads.cs
 
@@ -42,7 +44,9 @@ Allows players to trigger animations from assigned `animator` via interacting wi
 
 List of references on libraries, taken from other projects
 
+
 #### > Unidecoder.cs
 
 Unidecode.NET is .NET library dll, written in C#. It provides string extension method Unidecode() that returns transliterated string. It supports huge amount of languages.
+
 [Unidecode.NET github repository](https://github.com/thecoderok/Unidecode.NET)
