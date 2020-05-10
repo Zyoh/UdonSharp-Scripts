@@ -36,3 +36,13 @@ Players within range of the game object will have their jump power increased. Po
 #### > OnInteractAnimationPlayer.cs
 
 Allows players to trigger animations from assigned `animator` via interacting with object, which has current script in it.
+
+
+# Used libraries
+
+List of references on libraries, taken from other projects
+
+#### > Unidecoder.cs
+
+Unidecode.NET is .NET library dll, written in C#. It provides string extension method Unidecode() that returns transliterated string. It supports huge amount of languages.
+[Unidecode.NET github repository](https://github.com/thecoderok/Unidecode.NET)

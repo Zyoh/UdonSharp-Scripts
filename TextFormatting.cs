@@ -25,8 +25,11 @@ public class TextFormatting : UdonSharpBehaviour
     public bool formatDateTime = false;
     [Tooltip("Replace Unicode characters with similar ASCII if available.")]
     public bool forceAscii = false;
+
+    public bool renderOnce = true;
+    private bool preventRendering = false;
     [Tooltip("Reverts to default text if non-ASCII characters are detected. Enabling forceAscii will attempt to fix before this check.")]
-    private bool skipBrokenNames = false; // Private until it actually works.
+    private bool skipBrokenNames = false; // Private until it actually works
 
     private VRCPlayerApi playerLocal;
     private bool isEditor;
@@ -40,50 +43,58 @@ public class TextFormatting : UdonSharpBehaviour
 
     private void Update()
     {
-        string newString = userString;
-        
-        if (formatDateTime) newString = DateTime.Now.ToString(newString);
-        if (formatCustom)
+        if (!preventRendering)
         {
-            newString = newString.Replace("\\n", "\n");
-            if (!isEditor)
+            string newString = userString;
+
+            if (formatDateTime) newString = DateTime.Now.ToString(newString);
+            if (formatCustom)
             {
-                newString = newString.Replace("%playerLocal%", $"{playerLocal.displayName}");
-                newString = newString.Replace("%instanceDuration%", $"{Networking.GetServerTimeInSeconds()}");
+                newString = newString.Replace("\\n", "\n");
+                if (!isEditor)
+                {
+                    newString = newString.Replace("%playerLocal%", $"{playerLocal.displayName}");
+                    newString = newString.Replace("%instanceDuration%", $"{Networking.GetServerTimeInSeconds()}");
+                }
             }
-        }
-        if (forceAscii)
-        {
-            // TODO: Actually make this be useful instead of only fixing my name lol
-            // https://github.com/thecoderok/Unidecode.NET
-            newString = unidecoder.Unidecode(newString);
-        }
-        if (skipBrokenNames)
-        {
-            // TODO: Add more in-depth checking somehow.
-            // TODO: Make it actually revert to default text.
+
+            if (forceAscii)
+            {
+                newString = unidecoder.Unidecode(newString);
+            }
+
+            if (skipBrokenNames)
+            {
+                // TODO: Add more in-depth checking somehow.
+                // TODO: Make it actually revert to default text.
+                foreach (var letter in newString)
+                {
+                    if ("eéêëèiïaâäàåcç".IndexOf(letter) != -1) return;
+                }
+            }
+
+            textObject.text = newString;
+
+            // Get length of first line to adjust size.
+            // TODO: Get length of longest line instead of first one.
+            var firstLineLength = 0;
             foreach (var letter in newString)
             {
-                if ("eéêëèiïaâäàåcç".IndexOf(letter) != -1) return;
+                if (letter == '\n')
+                {
+                    break;
+                }
+
+                firstLineLength++;
             }
+
+            var newFontSize = maxLineLength / ((float) firstLineLength + 1) * (float) maxFontSize;
+            if (newFontSize > maxFontSize) newFontSize = maxFontSize;
+            textObject.fontSize = (int) newFontSize;
         }
-
-        textObject.text = newString;
-
-        // Get length of first line to adjust size.
-        // TODO: Get length of longest line instead of first one.
-        var firstLineLength = 0;
-        foreach (var letter in newString)
+        if (renderOnce && !preventRendering)
         {
-            if (letter == '\n')
-            {
-                break;
-            }
-            firstLineLength++;
+            preventRendering = true;
         }
-
-        var newFontSize = maxLineLength/((float)firstLineLength + 1) * (float)maxFontSize;
-        if (newFontSize > maxFontSize) newFontSize = maxFontSize;
-        textObject.fontSize = (int)newFontSize;
     }
 }
