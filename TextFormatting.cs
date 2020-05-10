@@ -1,5 +1,6 @@
-
 using System;
+using System.Text;
+using System.Text.RegularExpressions;
 using UdonSharp;
 using UnityEngine;
 using UnityEngine.Experimental.PlayerLoop;
@@ -9,6 +10,8 @@ using VRC.Udon;
 
 public class TextFormatting : UdonSharpBehaviour
 {
+    [Tooltip("Reference for non-ascii to ascii decoder object.")]
+    public Unidecoder unidecoder;
     public Text textObject;
     [Tooltip("Strings of length less than or equal to this value will be at maximum font size.")]
     public int maxLineLength = 9;
@@ -20,15 +23,20 @@ public class TextFormatting : UdonSharpBehaviour
     public bool formatCustom = false;
     [Tooltip("C# DateTime.Now.ToString formatting.")]
     public bool formatDateTime = false;
-    [Tooltip("Replace Unicode characters with similar ASCII if available.")]
+    [Tooltip("Replace Unicode characters with similar ASCII if available. Requires Unidecoder to work.")]
     public bool forceAscii = false;
+
+    // TODO: Fix in future
+    // [Tooltip("Limits number of text processing to one (for optimization purposes).")]
+    // public bool renderOnce = false;
+    // private bool preventRendering = false;
     [Tooltip("Reverts to default text if non-ASCII characters are detected. Enabling forceAscii will attempt to fix before this check.")]
-    private bool skipBrokenNames = false; // Private until it actually works.
+    private bool skipBrokenNames = false; // Private until it actually works
 
     private VRCPlayerApi playerLocal;
     private bool isEditor;
-    
-    
+
+
     private void Start()
     {
         playerLocal = Networking.LocalPlayer;
@@ -38,7 +46,7 @@ public class TextFormatting : UdonSharpBehaviour
     private void Update()
     {
         string newString = userString;
-        
+
         if (formatDateTime) newString = DateTime.Now.ToString(newString);
         if (formatCustom)
         {
@@ -49,14 +57,15 @@ public class TextFormatting : UdonSharpBehaviour
                 newString = newString.Replace("%instanceDuration%", $"{Networking.GetServerTimeInSeconds()}");
             }
         }
+
         if (forceAscii)
         {
-            // TODO: Actually make this be useful instead of only fixing my name lol.
-            // https://stackoverflow.com/questions/11815883/convert-non-ascii-characters-umlauts-accents-to-their-closest-ascii-equiva
-            // https://www.javatpoint.com/csharp-string-normalize
-            // https://docs.microsoft.com/ru-ru/dotnet/api/system.text.normalizationform?view=netcore-3.1
-            newString = newString.Replace('ë', 'e');
+            if (unidecoder != null)
+            {
+                newString = unidecoder.Unidecode(newString);
+            }
         }
+
         if (skipBrokenNames)
         {
             // TODO: Add more in-depth checking somehow.
@@ -78,11 +87,12 @@ public class TextFormatting : UdonSharpBehaviour
             {
                 break;
             }
+
             firstLineLength++;
         }
 
-        var newFontSize = maxLineLength/((float)firstLineLength + 1) * (float)maxFontSize;
+        var newFontSize = maxLineLength / ((float) firstLineLength + 1) * (float) maxFontSize;
         if (newFontSize > maxFontSize) newFontSize = maxFontSize;
-        textObject.fontSize = (int)newFontSize;
+        textObject.fontSize = (int) newFontSize;
     }
 }
