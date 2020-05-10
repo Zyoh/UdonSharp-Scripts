@@ -27,7 +27,7 @@ Copies the local player's position and rotation onto the GameObject with the Udo
 
 Very messy script, check source code to see if it could be useful to you. Main features being `DateTime.Now.ToString()` formatting and `formatCustom` will replace `%playerLocal%` with the local player's display name.
 
-**For being able to use `forceAscii` feature, requires assigning ``Unidecoder`` object through a reference!**
+**`forceAscii` requires a game object containing `Unidecoder.cs` assigned to the `unidecoder` variable!**
 
 
 #### > JumpPads.cs
@@ -37,7 +37,7 @@ Players within range of the game object will have their jump power increased. Po
 
 #### > OnInteractAnimationPlayer.cs
 
-Allows players to trigger animations from assigned `animator` via interacting with object, which has current script in it.
+Triggers the animation from assigned `animator` when interacting with the object containing the script.
 
 
 # Used libraries

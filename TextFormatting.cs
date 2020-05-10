@@ -23,8 +23,7 @@ public class TextFormatting : UdonSharpBehaviour
     public bool formatCustom = false;
     [Tooltip("C# DateTime.Now.ToString formatting.")]
     public bool formatDateTime = false;
-    [Tooltip("Replace Unicode characters with similar ASCII if available.")]
-    [Tooltip("Replace Unicode characters with similar ASCII if available. Requires Unidecoder for work.")]
+    [Tooltip("Replace Unicode characters with similar ASCII if available. Requires Unidecoder to work.")]
     public bool forceAscii = false;
 
     // TODO: Fix in future
