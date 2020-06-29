@@ -12,52 +12,52 @@ public class AvatarHeight : UdonSharpBehaviour
         // Array no work :<
 
         Vector3[] bones = {
-            Networking.LocalPlayer.GetBonePosition(HumanBodyBones.Head),
-            Networking.LocalPlayer.GetBonePosition(HumanBodyBones.Neck),
-            Networking.LocalPlayer.GetBonePosition(HumanBodyBones.Chest),
-            Networking.LocalPlayer.GetBonePosition(HumanBodyBones.Spine),
-            Networking.LocalPlayer.GetBonePosition(HumanBodyBones.Hips),
-            Networking.LocalPlayer.GetBonePosition(HumanBodyBones.LeftUpperLeg),
-            Networking.LocalPlayer.GetBonePosition(HumanBodyBones.LeftLowerLeg),
-            Networking.LocalPlayer.GetBonePosition(HumanBodyBones.LeftFoot)
+            player.GetBonePosition(HumanBodyBones.Head),
+            player.GetBonePosition(HumanBodyBones.Neck),
+            player.GetBonePosition(HumanBodyBones.Chest),
+            player.GetBonePosition(HumanBodyBones.Spine),
+            player.GetBonePosition(HumanBodyBones.Hips),
+            player.GetBonePosition(HumanBodyBones.LeftUpperLeg),
+            player.GetBonePosition(HumanBodyBones.LeftLowerLeg),
+            player.GetBonePosition(HumanBodyBones.LeftFoot)
         };
         */
 
         float height = 0;
 
         height += Vector3.Distance(
-            Networking.LocalPlayer.GetBonePosition(HumanBodyBones.Head),
-            Networking.LocalPlayer.GetBonePosition(HumanBodyBones.Neck)
+            player.GetBonePosition(HumanBodyBones.Head),
+            player.GetBonePosition(HumanBodyBones.Neck)
             );
 
         height += Vector3.Distance(
-            Networking.LocalPlayer.GetBonePosition(HumanBodyBones.Neck),
-            Networking.LocalPlayer.GetBonePosition(HumanBodyBones.Chest)
+            player.GetBonePosition(HumanBodyBones.Neck),
+            player.GetBonePosition(HumanBodyBones.Chest)
             );
 
         height += Vector3.Distance(
-            Networking.LocalPlayer.GetBonePosition(HumanBodyBones.Chest),
-            Networking.LocalPlayer.GetBonePosition(HumanBodyBones.Spine)
+            player.GetBonePosition(HumanBodyBones.Chest),
+            player.GetBonePosition(HumanBodyBones.Spine)
             );
 
         height += Vector3.Distance(
-            Networking.LocalPlayer.GetBonePosition(HumanBodyBones.Spine),
-            Networking.LocalPlayer.GetBonePosition(HumanBodyBones.Hips)
+            player.GetBonePosition(HumanBodyBones.Spine),
+            player.GetBonePosition(HumanBodyBones.Hips)
             );
 
         height += Vector3.Distance(
-            Networking.LocalPlayer.GetBonePosition(HumanBodyBones.Hips),
-            Networking.LocalPlayer.GetBonePosition(HumanBodyBones.LeftUpperLeg)
+            player.GetBonePosition(HumanBodyBones.Hips),
+            player.GetBonePosition(HumanBodyBones.LeftUpperLeg)
             );
 
         height += Vector3.Distance(
-            Networking.LocalPlayer.GetBonePosition(HumanBodyBones.LeftUpperLeg),
-            Networking.LocalPlayer.GetBonePosition(HumanBodyBones.LeftLowerLeg)
+            player.GetBonePosition(HumanBodyBones.LeftUpperLeg),
+            player.GetBonePosition(HumanBodyBones.LeftLowerLeg)
             );
 
         height += Vector3.Distance(
-            Networking.LocalPlayer.GetBonePosition(HumanBodyBones.LeftLowerLeg),
-            Networking.LocalPlayer.GetBonePosition(HumanBodyBones.LeftFoot)
+            player.GetBonePosition(HumanBodyBones.LeftLowerLeg),
+            player.GetBonePosition(HumanBodyBones.LeftFoot)
             );
 
 
