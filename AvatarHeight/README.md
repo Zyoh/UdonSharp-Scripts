@@ -13,3 +13,6 @@ It's just a function; add it to your scripts I guess idk.
 
 `getAvatarHeight(Networking.LocalPlayer);`
 
+#### --- Misc Info ---
+
+Non-humanoid avatars show as 0 height.
