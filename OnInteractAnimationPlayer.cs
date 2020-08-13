@@ -8,7 +8,10 @@ using VRC.Udon;
 public class OnInteractAnimationPlayer : UdonSharpBehaviour
 {
     public Animator animator;
-    public String animationName;
+    public String[] animationNames;
+    [UdonSynced]
+    private int counter = 0;
+    public bool synced;
 
     private void Start()
     {
@@ -20,6 +23,23 @@ public class OnInteractAnimationPlayer : UdonSharpBehaviour
     
     public override void Interact()
     {
-        animator.Play(animationName);
+        if (synced)
+        {
+            SendCustomNetworkEvent(VRC.Udon.Common.Interfaces.NetworkEventTarget.All, "PlayAnimation");
+        }
+        else
+        {
+            PlayAnimation();
+        }
+    }
+
+    public void PlayAnimation()
+    {
+        animator.Play(animationNames[counter]);
+        counter++;
+        if (counter >= animationNames.Length)
+        {
+            counter = 0;
+        }
     }
 }
